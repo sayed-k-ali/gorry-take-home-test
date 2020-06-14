@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "export NODE_ENV=testing && mocha ./tests/**/**/*.test.js",
+    "test": "export NODE_ENV=test && mocha ./tests/**/*.test.js --timeout 1000",
+    "prepare-test": "export NODE_ENV=test && sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
     "dev": "export NODE_ENV=development && nodemon app.js"
   },
   "author": "",

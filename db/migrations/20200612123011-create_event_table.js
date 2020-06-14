@@ -10,7 +10,10 @@ module.exports = {
             type: Sequelize.UUID,
           },
           event_name: Sequelize.STRING(100) ,
-          location_id: Sequelize.UUID,
+          location_id: {
+            type: Sequelize.UUID,
+            allowNull: false
+          },
           schedule_start: Sequelize.DATE,
           schedule_end: Sequelize.DATE,
 

@@ -10,7 +10,10 @@ module.exports = {
         },
         price: Sequelize.DOUBLE,
         quota: Sequelize.INTEGER,
-        event_id: Sequelize.UUID,
+        event_id: {
+          type: Sequelize.UUID,
+          allowNull: false
+        },
       });
   },
 

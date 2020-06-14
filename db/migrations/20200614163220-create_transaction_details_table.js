@@ -6,6 +6,7 @@ module.exports = {
         { 
           transaction_id: {
             type: Sequelize.UUID,
+            allowNull: false,
             references:{
               model: 'transactions',
               key: 'id'
@@ -13,6 +14,7 @@ module.exports = {
           },
           ticket_id:{
             type: Sequelize.UUID,
+            allowNull: false,
             references:{
               model: 'tickets',
               key: 'id'

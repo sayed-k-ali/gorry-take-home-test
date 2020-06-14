@@ -8,7 +8,10 @@ module.exports = {
             type: Sequelize.UUID,
             primaryKey: true,
           },
-          customer_id: Sequelize.UUID,
+          customer_id: {
+            type: Sequelize.UUID,
+            allowNull: false
+          },
           purchase_date: Sequelize.DATE,
           total_qty: Sequelize.DECIMAL,
           total_price: Sequelize.DECIMAL,
