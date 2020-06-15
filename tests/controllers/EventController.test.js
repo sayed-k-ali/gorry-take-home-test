@@ -7,7 +7,7 @@ const staticUUID = require('uuid').v4();
 chai.use(chaiHttp);
 
 
-describe('EventController', async ()=>{
+describe('EventControllerTest', async ()=>{
     describe('/POST', async ()=>{
         it('testCreateEvent', (done)=>{
             const mockEventData = {
@@ -20,8 +20,7 @@ describe('EventController', async ()=>{
             chai.request(app)
                 .post('/events/create')
                 .send(mockEventData)
-                .end((req, res)=>{
-                    console.log(res.status);
+                .end((err, res)=>{
                     expect(res).to.have.status(201);
                     expect(res.body).to.be.a('object');
                     done();
@@ -36,7 +35,7 @@ describe('EventController', async ()=>{
                 .query({
                     event_id: staticUUID
                 })
-                .end((req, res)=>{
+                .end((err, res)=>{
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.a.property('id');
                     expect(res.body.id).to.equal(staticUUID);

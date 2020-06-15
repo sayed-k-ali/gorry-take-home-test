@@ -18,7 +18,6 @@ class EventController{
         }
         
         let response = await this.eventServices.getEvent(queryParams);
-        console.log(response)
         return res.status(response.status).send(response.data);
     }
 
