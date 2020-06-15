@@ -15,6 +15,24 @@ class EventService{
         }
     }
 
+    async getEvent(queryParams){
+        let result = await this.eventModel.getEvent(queryParams);
+        if(result.length > 0){
+            return {
+                status: HttpStatus.OK,
+                data: result[0]
+            }
+        }
+
+        return {
+            status: HttpStatus.NOT_FOUND,
+            error: {
+                error_code: 'NOT_FOUND',
+                message: 'Data you are looking is not found'
+            }
+        }
+    }
+
     async createEvent(data){
         let eventData = {
             id: data.id || uuid.v4(),

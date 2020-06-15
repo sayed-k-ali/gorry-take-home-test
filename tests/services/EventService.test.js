@@ -7,7 +7,7 @@ describe('EventServiceTest', async ()=>{
     const eventService = new EventService();
     const staticLocationId = '26a657fb-10a7-46f8-a837-c0b43cd73f83';
     const mockEventData = {
-        event_name: 'Testing Event',
+        event_name: 'Testing Event from Services',
         schedule_start: '2020-10-10 09:00',
         schedule_end: '2020-10-15 23:59',
     }

@@ -7,7 +7,6 @@ class DBCommonService {
   }
 
   async query(query, data = []) {
-    console.log(this.db)
     try {
       const connection = await this.dbConnection.createConnection(this.db);
       try {

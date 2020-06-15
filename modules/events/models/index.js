@@ -11,6 +11,11 @@ class EventModel{
         return result;
     }
 
+    async getEvent(where){
+        let query = `SELECT * FROM ${this.table} WHERE ?`;
+        let result = await this.dbo.query(query, where);
+        return result;
+    }
     async createEvent(data){
         let query = `INSERT INTO ${this.table} SET ?`;
         let result = await this.dbo.query(query,data);
