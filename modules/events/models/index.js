@@ -11,14 +11,28 @@ class EventModel{
         return result;
     }
 
-    async getEvent(where){
-        let query = `SELECT * FROM ${this.table} WHERE ?`;
-        let result = await this.dbo.query(query, where);
+    async getEvent(eventId){
+        let query = `SELECT e.*, l.location_name from events e
+                    INNER JOIN locations l ON e.location_id = l.id
+                    WHERE e.id = ?`;
+        let result = await this.dbo.query(query, [eventId]);
+        return result;
+    }
+
+    async getTicketByEventId(eventId){
+        let query = `SELECT ticket_type as type,price,quota FROM tickets WHERE event_id= ?`;
+        let result = await this.dbo.query(query, [eventId]);
         return result;
     }
     async createEvent(data){
         let query = `INSERT INTO ${this.table} SET ?`;
         let result = await this.dbo.query(query,data);
+        return result;
+    }
+
+    async createTicket(data){
+        let query = `INSERT INTO tickets SET ?`;
+        let result = await this.dbo.query(query, data);
         return result;
     }
 }

@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 
 describe('EventControllerTest', async ()=>{
-    describe('/POST', async ()=>{
+    describe('/POST event', async ()=>{
         it('testCreateEvent', (done)=>{
             const mockEventData = {
                 id: staticUUID,
@@ -28,7 +28,26 @@ describe('EventControllerTest', async ()=>{
         });
     });
 
-    describe('/GET', async ()=>{
+    describe('/POST ticket', async ()=>{
+        it('testCreateTicket', (done) => {
+            const mockTicketData = {
+                event_id: staticUUID,
+                ticket_type: 'VVIP',
+                price: 80000,
+                quota: 16,
+            }
+            chai.request(app)
+                .post('/events/ticket/create')
+                .send(mockTicketData)
+                .end((err, res)=>{
+                    expect(res).to.have.status(201);
+                    expect(res.body).to.be.a('object');
+                    done();
+                })
+        })
+    })
+
+    describe('/GET event', async ()=>{
         it('testGetEvent', (done)=>{
             chai.request(app)
                 .get('/events/get_info')
@@ -39,6 +58,8 @@ describe('EventControllerTest', async ()=>{
                     expect(res).to.have.status(200);
                     expect(res.body).to.have.a.property('id');
                     expect(res.body.id).to.equal(staticUUID);
+                    expect(res.body.ticket).to.be.a('array');
+                    expect(res.body.ticket[0]).to.have.a.property('type')
                     done();
                 })
         })

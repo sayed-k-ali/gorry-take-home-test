@@ -1,5 +1,4 @@
 'use strict';
-const uuid = require('uuid');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -17,14 +16,14 @@ module.exports = {
 
         queryInterface.bulkInsert('events', [
           {
-            id: uuid.v4(),
+            id: '48ab97ce-19fe-458b-8a90-d9b01120a3a5',
             event_name: 'Jumanji',
             location_id: '26a657fb-10a7-46f8-a837-c0b43cd73f83',
             schedule_start: '2020-10-10 09:00',
             schedule_end: '2020-10-15 23:59',
           },
           {
-            id: uuid.v4(),
+            id: '997bdddc-8758-4ae6-ba4a-d5ac8410cc86',
             event_name: 'Spiderman Homecoming',
             location_id: '26a657fb-10a7-46f8-a837-c0b43cd73f83',
             schedule_start: '2020-10-10 09:00',

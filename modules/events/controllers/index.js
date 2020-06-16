@@ -5,6 +5,7 @@ class EventController{
         this.getAllEvents = this.getAllEvents.bind(this);
         this.getEvent = this.getEvent.bind(this);
         this.createEvent = this.createEvent.bind(this);
+        this.createTicket = this.createTicket.bind(this);
     }
 
     async getAllEvents(req, res){
@@ -13,12 +14,8 @@ class EventController{
     }
 
     async getEvent(req, res){
-        let queryParams = {
-            id: req.query.event_id
-        }
-        
-        let response = await this.eventServices.getEvent(queryParams);
-        return res.status(response.status).send(response.data);
+        let response = await this.eventServices.getEvent(req.query.event_id);
+        return res.status(response.status).send(response.data || response.error);
     }
 
     async createEvent(req, res){
@@ -26,6 +23,10 @@ class EventController{
         return res.status(response.status).send(response.data || response.error);
     }
 
+    async createTicket(req, res){
+        let response = await this.eventServices.createTicket(req.body);
+        return res.status(response.status).send(response.data || response.error);
+    }
 
 }
 

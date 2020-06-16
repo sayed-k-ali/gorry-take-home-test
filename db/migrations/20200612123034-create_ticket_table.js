@@ -8,6 +8,7 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.UUID
         },
+        ticket_type: Sequelize.STRING,
         price: Sequelize.DOUBLE,
         quota: Sequelize.INTEGER,
         event_id: {

@@ -1,26 +1,50 @@
 const EventModel = require('../models');
+const LocationModel = require('../../locations/models');
 const HttpStatus = require('http-status');
+const Validator = require('fastest-validator');
 const uuid = require('uuid');
 
 class EventService{
     constructor() {
         this.eventModel = new EventModel();
-    }
+        this.locationModel = new LocationModel();
+        this.validator = new Validator();
+        this.schema = {
+            event: {
+                location_id: {
+                    type: 'uuid',
+                },
+                schedule_start: {
+                    type: 'date'
+                },
+                schedule_end: {
+                    type: 'date'
+                },
+            },
 
-    async getAllEvents(){
-        let result = await this.eventModel.getAllEvents();
-        return {
-            status: HttpStatus.OK,
-            data: result
+            ticket: {
+                event_id: {
+                    type: 'uuid',
+                },
+                price: {
+                    type: 'number',
+                },
+                quota: {
+                    type: 'number'
+                }
+            }
         }
     }
 
     async getEvent(queryParams){
-        let result = await this.eventModel.getEvent(queryParams);
-        if(result.length > 0){
+        
+        let eventData = await this.eventModel.getEvent(queryParams);
+
+        if(eventData.length > 0){
+            let ticketData = await this.eventModel.getTicketByEventId(eventData[0].id);
             return {
                 status: HttpStatus.OK,
-                data: result[0]
+                data: { ...eventData[0], ticket: ticketData}
             }
         }
 
@@ -38,9 +62,60 @@ class EventService{
             id: data.id || uuid.v4(),
             event_name: data.event_name,
             location_id: data.location_id,
+            schedule_start: new Date(Date.parse(data.schedule_start)),
+            schedule_end: new Date(Date.parse(data.schedule_end))
         };
+
+        let isValidForm = this.validator.validate(eventData, this.schema.event);
+        if(isValidForm !== true){
+            return{
+                status: HttpStatus.BAD_REQUEST,
+                error: {
+                    error_code: "FORM_VALIDATION",
+                    message: isValidForm
+                }
+            };
+        }
+
         const addEvent = await this.eventModel.createEvent(eventData);
         if(addEvent.affectedRows===0 || addEvent.error){
+            return {
+                status: HttpStatus.INTERNAL_SERVER_ERROR,
+                error: {
+                    error_code: 'INTERNAL_SERVER_ERROR',
+                    message: 'Error encountered when creating event data'
+                }
+            }
+        }
+
+        return {
+            status: HttpStatus.CREATED,
+            data: 'event created'
+        }
+    }
+
+    async createTicket(data){
+        let ticketData = {
+            id: data.id || uuid.v4(),
+            ticket_type: data.ticket_type,
+            price: data.price,
+            quota: data.quota,
+            event_id: data.event_id,
+        };
+
+        let isValidForm = this.validator.validate(ticketData, this.schema.ticket);
+        if(isValidForm !== true){
+            return{
+                status: HttpStatus.BAD_REQUEST,
+                error: {
+                    error_code: "FORM_VALIDATION",
+                    message: isValidForm
+                }
+            };
+        }
+
+        const addTicket = await this.eventModel.createTicket(ticketData);
+        if(addTicket.affectedRows===0 || addTicket.error){
             return {
                 status: HttpStatus.INTERNAL_SERVER_ERROR,
                 error: {

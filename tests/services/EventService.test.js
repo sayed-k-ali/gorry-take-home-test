@@ -17,7 +17,7 @@ describe('EventServiceTest', async ()=>{
         expect(result).to.haveOwnProperty('error');
     })
 
-    it('testCreateEventWithStatusOK', async ()=>{
+    it('testCreateEventWithStatusCREATED', async ()=>{
         mockEventData.location_id = staticLocationId
         let result = await eventService.createEvent(mockEventData);
         expect(result).to.be.a('object');
