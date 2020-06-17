@@ -90,7 +90,10 @@ class EventService{
 
         return {
             status: HttpStatus.CREATED,
-            data: 'event created'
+            data: {
+                message: 'Event created',
+                url: '[GET] https://localhost:3000/event/get_info?id=' + eventData.id
+            } 
         }
     }
 
@@ -120,14 +123,14 @@ class EventService{
                 status: HttpStatus.INTERNAL_SERVER_ERROR,
                 error: {
                     error_code: 'INTERNAL_SERVER_ERROR',
-                    message: 'Error encountered when creating event data'
+                    message: 'Error encountered when creating ticket data'
                 }
             }
         }
 
         return {
             status: HttpStatus.CREATED,
-            data: 'event created'
+            data: 'Ticket created'
         }
     }
 }

@@ -20,7 +20,7 @@ class EventModel{
     }
 
     async getTicketByEventId(eventId){
-        let query = `SELECT ticket_type as type,price,quota FROM tickets WHERE event_id= ?`;
+        let query = `SELECT * FROM tickets WHERE event_id= ?`;
         let result = await this.dbo.query(query, [eventId]);
         return result;
     }

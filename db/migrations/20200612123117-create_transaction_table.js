@@ -8,13 +8,14 @@ module.exports = {
             type: Sequelize.UUID,
             primaryKey: true,
           },
-          customer_id: {
-            type: Sequelize.UUID,
+          customer_phone: {
+            type: Sequelize.STRING(13),
             allowNull: false
           },
-          purchase_date: Sequelize.DATE,
-          total_qty: Sequelize.DECIMAL,
-          total_price: Sequelize.DECIMAL,
+          customer_name: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          }
         });
   },
 

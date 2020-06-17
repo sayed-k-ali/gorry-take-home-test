@@ -11,7 +11,7 @@ describe('LocationControllerTest', ()=>{
     describe('/POST location', ()=>{
         it('testCreateLocation', (done)=>{
             chai.request(app)
-                .post('/locations/create')
+                .post('/location/create')
                 .send({
                     id: uuid.v4(),
                     location_name: 'Testing Location in Controller'

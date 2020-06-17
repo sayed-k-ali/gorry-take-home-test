@@ -10,7 +10,9 @@ module.exports = {
             references:{
               model: 'transactions',
               key: 'id'
-            }
+            },
+            onDelete: 'cascade',
+            onUpdate: 'cascade',
           },
           ticket_id:{
             type: Sequelize.UUID,
@@ -21,6 +23,7 @@ module.exports = {
             }
           },
           qty: Sequelize.DECIMAL,
+          price: Sequelize.DECIMAL
         });
   },
 

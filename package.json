@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "export NODE_ENV=test && mocha ./tests/**/*.test.js --timeout 1000",
     "prepare-test": "export NODE_ENV=test && sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
-    "dev": "export NODE_ENV=development && nodemon app.js"
+    "test": "export NODE_ENV=test && mocha ./tests/**/*.test.js --timeout 1000",
+    "prepare-dev": "export NODE_ENV=evelopment && sequelize db:drop && sequelize db:create && sequelize db:migrate && sequelize db:seed:all",
+    "dev": "export NODE_ENV=development && nodemon app.js",
+    "start": "export NODE_ENV=production && node app.js"
   },
   "author": "",
   "license": "ISC",

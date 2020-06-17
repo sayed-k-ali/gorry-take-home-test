@@ -23,17 +23,6 @@ module.exports = {
         onDelete: 'cascade',
         onUpdate: 'cascade'
       }),
-      queryInterface.addConstraint('transactions',['customer_id'], {
-        type:'FOREIGN KEY',
-        name: 'FK_customer_transaction',
-        references:{
-          table: 'customers',
-          field: 'id',
-        },
-        onDelete: 'cascade',
-        onUpdate: 'cascade'
-      }),
-
     ])
   },
 
@@ -41,7 +30,6 @@ module.exports = {
     return Promise.all([
       queryInterface.removeConstraint('events','FK_event_location'),
       queryInterface.removeConstraint('tickets','FK_ticket_event'),
-      queryInterface.removeConstraint('transactions','FK_customer_transaction'),
     ])
   }
 };
