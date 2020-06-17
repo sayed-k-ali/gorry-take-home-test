@@ -11,9 +11,14 @@ npm install
 ```
 
 2. Run migration using this command, please make sure that *Mysql* or *Mariadb* daemon is active/run
+but first, make sure that we run this command in *production* mode, to check or set the environment
+run this command 
+```bash
+echo $NODE_ENV                  #this command is to check the environment
+export NODE_ENV=production      #this command is to set the environment into production mode
+```
 
 ```bash
-export NODE_ENV=production
 sequelize db:create
 sequelize db:migrate
 sequelize db:seed:all
